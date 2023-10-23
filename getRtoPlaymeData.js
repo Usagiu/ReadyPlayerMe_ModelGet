@@ -22,11 +22,11 @@ type = [
 ]
 
 
-const list = []
+const list = {}
 
 
 const getData = (type) => {
-    fetch(`https://api.readyplayer.me/v1/assets?page=1&limit=500&filter=viewable-by-user-and-app&filterUserId=652f7ecdc1569624f061f9c9&filterApplicationId=6422f7b818de6a64d634c446&filterAllowLocked=true&order=-locked&type=${type}&gender=female&gender=neutral`, {
+    fetch(`https://api.readyplayer.me/v1/assets?page=1&limit=500&filter=viewable-by-user-and-app&filterUserId=652f7ecdc1569624f061f9c9&filterApplicationId=6422f7b818de6a64d634c446&filterAllowLocked=true&order=-locked&type=${type}&gender=male&gender=neutral`, {
         "headers": {
             "accept": "*/*",
             "accept-language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7,ja;q=0.6",
@@ -49,9 +49,7 @@ const getData = (type) => {
         "credentials": "include"
     }).then(res => res.json())
         .then(res => {
-            list.push({
-                [type]: res.data
-            })
+            list[type] = res.data
         })
 }
 
@@ -59,7 +57,7 @@ type.map((item) => {
     getData(item)
 })
 
-const fileName = 'rtoplayMe.json';
+const fileName = 'man.json';
 
 setTimeout(() => {
     const jsonContent = JSON.stringify(list, null, 2); 

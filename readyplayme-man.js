@@ -7,9 +7,9 @@ const womandata  = require("./woman.json");
 const mandata = require("./man.json");
 
 //性别改变
-const gender = "woman"  // or man
+const gender = "man"  // or man
 const allData = gender === "woman" ? womandata : mandata
-const id = gender === "woman" ?  "652f9cfe2838e3d5f8a9d6dd" : "653227527c7ea066869a0457"//woman
+const id = gender === "woman" ?  "652f9cfe2838e3d5f8a9d6dd" : "653227527c7ea066869a0457"
 
 const hairlenth = allData.hair.length
 const glasseslenth = allData.glasses.length
@@ -44,8 +44,7 @@ const changeFirst = (data) => {
             console.log("change", response, JSON.stringify(data));
             applyChange()
         })
-        .catch(error => {
-            console.error('Request failed:', error);
+        .catch((e) => {
             downloadData();
         })
 }
@@ -74,8 +73,7 @@ const applyChange = () => {
         .then(res => {
             console.log("apple", res);
             download();
-        })
-        .catch((e) => {
+        }).catch((e) => {
             downloadData();
         })
 }
@@ -84,7 +82,7 @@ let index = 0
 let mcount = 0
 //下载数据
 const download = () => {
-    let localFilePath = path.join(__dirname, 'womandata', `${gender}-${index}_${mcount}.glb`);
+    let localFilePath = path.join(__dirname, 'mandata', `${gender}-${index}_${mcount}.glb`);
     const fileUrl = `https://models.readyplayer.me/${id}.glb`;
     axios({
         url: fileUrl,
@@ -108,7 +106,7 @@ function getRandomInt(max) {
 }
 
 const downloadData = () => {
-    if (index < 99) {
+    if (index <= 99) {
         let outfitId = allData.outfit[index].id;
         if(mcount < 5) {
             let hairId = allData.hair[getRandomInt(hairlenth)]?.id || "";
@@ -118,10 +116,10 @@ const downloadData = () => {
             let data = {
                 "data": {
                     "assets": {
-                        "outfit":outfitId || "",
-                        "eyeShape": eyeShapeId || "",
-                        "hairStyle": hairId || "",
-                        "glasses":glassesId || ""
+                        "outfit":outfitId,
+                        "eyeShape": eyeShapeId,
+                        "hairStyle": hairId,
+                        "glasses":glassesId
                     }
                 }
             }
